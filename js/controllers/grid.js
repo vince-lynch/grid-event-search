@@ -52,7 +52,7 @@ angular.module('MyApp')
             var theKey = eventCoords.x.toString() + ":" + eventCoords.y.toString();
             console.log("theKey", theKey);
 
-            window.grid[theKey] = {eventCoords: eventCoords, tickets: eventTickets, selected: false};
+            window.grid[theKey] = {name: theKey,eventCoords: eventCoords, tickets: eventTickets, selected: false};
             
             i++;
      	}
@@ -88,11 +88,33 @@ angular.module('MyApp')
        
 
        var fourSurroundingEvents = [window.grid[nearCoords.oneUp], window.grid[nearCoords.oneDown], window.grid[nearCoords.oneLeft], window.grid[nearCoords.oneRight] ];
-
        console.log("fourSurroundingEvents", fourSurroundingEvents);
     
+       var fiveNearestEvents = fourSurroundingEvents;
+       fiveNearestEvents.push(nearestEvent);
 
+       var i = 0;
+       var cheapestLocalTickets = [];
+       for(i in fiveNearestEvents){
+         var theEvent = fiveNearestEvents[i]
+         var cheapestTicket = Math.min.apply(Math,theEvent.tickets);
+         cheapestLocalTickets.push({eventName: theEvent.name,cheapestTicket: cheapestTicket})
+       }
+       $scope.cheapestLocalTickets = cheapestLocalTickets;
+       console.log("cheapestLocalTickets", cheapestLocalTickets);
     }
 
+
+   $scope.clearSearch = function(){
+     console.log("reached clearSearch()");
+
+     var i = 0;
+     for(i in $scope.cheapestLocalTickets){
+       var aEvent = $scope.cheapestLocalTickets[i];
+       $scope.grid[aEvent.eventName].selected    = false;
+       $scope.grid[aEvent.eventName].highlighted = false;
+     }
+     $scope.cheapestLocalTickets = [];
+   }
 
   });

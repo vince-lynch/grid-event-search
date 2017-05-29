@@ -1,27 +1,19 @@
 <h1>Grid.html</h1>
 
 
-<input type="coordinates" name="coordinates" data-ng-model="coordinates"><button ng-click="findNearest(coordinates)">Search Coordinates</button>
+<input type="coordinates" name="coordinates" data-ng-model="coordinates"><button data-ng-click="findNearest(coordinates)">Search Coordinates</button><button data-ng-click="clearSearch()">Clear search</button>
+
+
+<h2>Cheapest Tickets</h2>
+<ul>
+	<li data-ng-repeat="ticket in cheapestLocalTickets track by $index">
+		<span>Event: <i data-ng-bind="ticket.eventName"></i> - cheapest ticket: $<em data-ng-bind="ticket.cheapestTicket"></em></span>
+	</li>
+</ul>
+
 
 <div class="container">
 	<div class="grid-event-box {{event.selected}}" ng-repeat="event in grid track by $index" ng-class="{'event-selected': event.selected, 'near-event': event.highlighted }" >
         {{event.eventCoords.x}}, {{event.eventCoords.y}}
 	</div>
 </div>
-<!-- http://chimera.labs.oreilly.com/books/1234000000770/ch01.html#canvas_graphing_calculator -->
-
-<p style="color: red;">
-<span id="status_message">Click a button below the grid to graph an equation
-</span></p>
-<canvas id="canvas" width="400" height="400">
- Your browser does not support the HTML 5 Canvas. 
-</canvas>
-<form>
-<input type="button" id="y_equals_x" value="y = 1x" style="color: green;"/>
-<input type="button" id="y_equals_negative_x" value="y = -1x" 
-style="color: purple;"/>
-<input type="button" id="y_equals_two_x" value="y = 2x" style="color: blue;"/>
-<input type="button" id="y_equals_one_half_x" value="y = 0.5x" 
-style="color: brown"/>
-<input type="button" id="reset_grid" value="Reset Grid"/>
-</form>
