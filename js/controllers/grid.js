@@ -4,30 +4,25 @@ angular.module('MyApp')
 	 console.log("grid controller loaded");
 
      $scope.coordinates = "0,0"
+     $scope.gridWidth   = 10;
 
-     function forIn(obj, fn, thisObj){
-		  var key, i = 0;
-		  for (key in obj) {
-		    if (exec(fn, obj, key, thisObj) === false) {
-		      break;
-		    }
-		  }
-		  function exec(fn, obj, key, thisObj){
-		    return fn.call(thisObj, obj[key], key, obj);
-		  }
-		  return forIn;
-	  };
+     
 
-     var gridX = 20;
-     var gridY = 20;
-     window.grid = {};
+     $scope.generateGrid = function(gridX){
 
-     $scope.generateGrid = function(){
+        window.grid = {};
+
+         var gridX          = gridX,
+             gridY          = gridX,
+             halfX          = gridX / 2,
+             totalLocations = gridX * gridY,
+             halfGrid       = (totalLocations) / 2;
+
      	var randTicketsAmount = 0;
         var eventTickets = [];
 
 		var i = 0;
-     	while(i < (gridX * gridY)){
+     	while(i < (totalLocations)){
             eventTickets = [];
      		randTicketsAmount = Math.floor(Math.random() * 6) + 1;
 
@@ -39,16 +34,10 @@ angular.module('MyApp')
      			r++;
      		}
 
-            // if(i >= 0 && i < 20){
-            //     window.grid[i] = {x: i - 10, y: -10};
-            // }
-            // if(i >= 20 && i < 40){
-            //     window.grid[i] = {x: i - 30, y: -9};
-            // }
-            var wYc = Math.ceil(i / 20) * 20;
-            var wYf = Math.floor(i / 20) * 20; //i % 20
-            var yAxis = ((wYc / 200) * 10) - 10;
-            var eventCoords = {x: (i - (wYf))-10 , y: yAxis};
+            var wYc = Math.ceil(i / gridX) * gridX;
+            var wYf = Math.floor(i / gridX) * gridX; //i % gridX
+            var yAxis = ((wYc / halfGrid) * halfX) - halfX;
+            var eventCoords = {x: (i - (wYf))-halfX , y: yAxis};
             var theKey = eventCoords.x.toString() + ":" + eventCoords.y.toString();
             console.log("theKey", theKey);
 
@@ -58,9 +47,10 @@ angular.module('MyApp')
      	}
 
         $scope.grid = window.grid;
+        $scope.eventBoxWidth = 100 / gridX;
 
      }
-     $scope.generateGrid();
+     $scope.generateGrid($scope.gridWidth);
 
     
     $scope.findNearest = function(Coords){
@@ -83,7 +73,9 @@ angular.module('MyApp')
        // Highlight nearest
        var i = 0;
        for(i in nearCoords){
-          $scope.grid[nearCoords[i]].highlighted = true;
+          if($scope.grid[nearCoords[i]] != undefined){
+            $scope.grid[nearCoords[i]].highlighted = true;
+          }
        }
        
 
@@ -96,9 +88,11 @@ angular.module('MyApp')
        var i = 0;
        var cheapestLocalTickets = [];
        for(i in fiveNearestEvents){
-         var theEvent = fiveNearestEvents[i]
-         var cheapestTicket = Math.min.apply(Math,theEvent.tickets);
-         cheapestLocalTickets.push({eventName: theEvent.name,cheapestTicket: cheapestTicket})
+         var theEvent = fiveNearestEvents[i];
+         if(theEvent != undefined){
+            var cheapestTicket = Math.min.apply(Math,theEvent.tickets);
+            cheapestLocalTickets.push({eventName: theEvent.name,cheapestTicket: cheapestTicket});
+         }
        }
        $scope.cheapestLocalTickets = cheapestLocalTickets;
        console.log("cheapestLocalTickets", cheapestLocalTickets);

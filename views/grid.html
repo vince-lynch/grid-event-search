@@ -13,7 +13,10 @@
 
 
 <div class="container">
-	<div class="grid-event-box {{event.selected}}" ng-repeat="event in grid track by $index" ng-class="{'event-selected': event.selected, 'near-event': event.highlighted }" >
+	<div class="grid-event-box {{event.selected}}" ng-repeat="event in grid track by $index" ng-class="{'event-selected': event.selected, 'near-event': event.highlighted }" style="width: {{eventBoxWidth}}%;">
         {{event.eventCoords.x}}, {{event.eventCoords.y}}
 	</div>
 </div>
+
+
+<input type="text" data-ng-model="howWide"/><button data-ng-click="generateGrid(howWide)">Generate Grid</button>
