@@ -1,8 +1,3 @@
-<h1>Grid.html</h1>
-
-
-<input type="coordinates" name="coordinates" data-ng-model="coordinates"><button data-ng-click="findNearest(coordinates)">Search Coordinates</button><button data-ng-click="clearSearch()">Clear search</button>
-
 
 <h2>Cheapest Tickets</h2>
 <ul>
@@ -12,11 +7,11 @@
 </ul>
 
 
-<div class="container">
+<div class="container grid-container">
 	<div class="grid-event-box {{event.selected}}" ng-repeat="event in grid track by $index" ng-class="{'event-selected': event.selected, 'near-event': event.highlighted }" style="width: {{eventBoxWidth}}%;">
         {{event.eventCoords.x}}, {{event.eventCoords.y}}
 	</div>
 </div>
 
 
-<input type="text" data-ng-model="howWide"/><button data-ng-click="generateGrid(howWide)">Generate Grid</button>
+<input type="text" data-ng-model="gridWidth"/><button data-ng-click="generateGrid(gridWidth)">Generate Grid</button>

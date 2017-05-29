@@ -4,7 +4,7 @@ angular.module('MyApp')
 	 console.log("grid controller loaded");
 
      $scope.coordinates = "0,0"
-     $scope.gridWidth   = 10;
+     $scope.gridWidth   = 20;
 
      
 
@@ -39,7 +39,6 @@ angular.module('MyApp')
             var yAxis = ((wYc / halfGrid) * halfX) - halfX;
             var eventCoords = {x: (i - (wYf))-halfX , y: yAxis};
             var theKey = eventCoords.x.toString() + ":" + eventCoords.y.toString();
-            console.log("theKey", theKey);
 
             window.grid[theKey] = {name: theKey,eventCoords: eventCoords, tickets: eventTickets, selected: false};
             
@@ -54,8 +53,13 @@ angular.module('MyApp')
 
     
     $scope.findNearest = function(Coords){
+
        var coords = {x: (parseInt(Coords.split(",")[0]) ), y: (parseInt(Coords.split(",")[1]) )}
        var coordsKey = coords.x.toString() + ":" +coords.y.toString();
+
+       if(Math.abs(coords.x) > ($scope.gridWidth / 2) || Math.abs(coords.y) > ($scope.gridWidth / 2) ){
+         return alert("those coordinates do not exist on the current map");
+       }
 
        console.log("using findNearest() coords", coords, "and coordsKey", coordsKey);
        

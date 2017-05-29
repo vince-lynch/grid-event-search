@@ -1,72 +1,111 @@
-<!doctype html>
-<html>
-<head>
-  <base href="/">
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grid App - here</title>
-  <link rel="stylesheet" href="/css/vendor/bootstrap.css">
-  <link rel="stylesheet" href="/css/main.css">
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://johnho.ca/startpage/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>TicketSearch</title>
+
+<script src="/js/lib/jquery.js"></script>
+<script type="text/javascript" src="./js/libs/settings.js"></script>
+<script type="text/javascript" src="./js/libs/custom.js"></script>
+
+
 </head>
 <base href="https://vincelynch.com/grid-test/">
-<body ng-app="MyApp">
-  {{2 + 2}}
-  <div ng-view></div>
+<body ng-app="MyApp" style="background-image: url(&quot;https://source.unsplash.com/collection/407877&quot;); background-repeat: no-repeat; background-size: cover; font-family: &quot;Clear Sans&quot;;" data-ng-controller="GridCtrl">
+	
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">TicketSearch</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Default</a></li>
+            <li><a href="../navbar-static-top/">Static top</a></li>
+            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+
+	<div id="wrapper" class="container">
+		<header>
+			<div id="fulltime">
+			        <h1 style="font-size:1.3em"></h1>
+				<h1></h1>
+				<h1 id="time">22<span>:</span>14<span>:</span>12</h1>
+				<h2 id="day">Monday</h2>
+				<h3 id="date">May 29, 2017</h3>
+			</div>
+			<div id="weather"><h2 class="weatherHead"><i class="wi wi-yahoo-29"></i> 25°C</h2><ul class="weatherDetail"><li>London,  UK</li><li class="currently">Partly Cloudy</li></ul></div>
+			<div class="clear"></div>
+		</header>
+
+
+		<form id="search" >
+			<ul class="type">
+				<li class="first"><p id="currtype">Coordinates</p>
+				</li>
+			</ul>
+			<input type="coordinates" name="coordinates" data-ng-model="coordinates" type="text" id="query" autocomplete="on" name="q"><button data-ng-click="findNearest(coordinates)">Search Coordinates</button><button data-ng-click="clearSearch()">Clear search</button>
+
+			
+			<div class="clear"></div>
+		</form>
+       
   
 
-  <script src="/js/lib/jquery.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/1.6/modernizr.js"></script>
 
 
-  <script src="/js/lib/bootstrap.js"></script>
-  <script src="/js/lib/angular.js"></script>
-  <script src="/js/lib/angular-route.js"></script>
-  <script src="/js/lib/satellizer.js"></script>
 
-  
-  <script src="/grid-test/js/app.js"></script>
-  <script src="/grid-test/js/controllers/grid.js"></script>
+	</div>
+	<div  data-ng-include="'/grid-test/views/grid.html'" style="width: 100% !important;"></div>
 
 
 </body>
+
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/1.6/modernizr.js"></script>
+
+	  <script src="/js/lib/bootstrap.js"></script>
+	  <script src="/js/lib/angular.js"></script>
+	  <script src="/js/lib/angular-route.js"></script>
+	  <script src="/js/lib/satellizer.js"></script>
+
+	  
+	  <script src="/grid-test/js/app.js"></script>
+	  <script src="/grid-test/js/controllers/grid.js"></script>
+      <script type="text/javascript" src="./js/libs/jquery.simpleWeather.min.js"></script>
+      <link rel="stylesheet" href="./css/weather-icons.min.css">
+
+       <link rel="stylesheet" href="/css/vendor/bootstrap.css">
+       <link rel="stylesheet" href="/grid-test/css/style.css">
 </html>
-
-
-<!-- 
-- Code in any language you like but please provide clear instructions on how we should build & run your code
-- Please use any source control system you like, and send us a link (or if you prefer just a zip of your project)
-- The first requirement is your code meets the requirements
-- Secondary requirements are whether your code is idiomatic for the language being coded in, easy to read, and clearly laid out
-
-Scenario
- 
-- Your program should randomly generate seed data
-- Your program should operate in a world that ranges from -10 to +10 (Y axis), and -10 to +10 (X axis)
-- Your program should assume that each co-ordinate can hold a maximum of one event
-- Each event has a unique numeric identifier (e.g. 1, 2, 3)
-- Each event has zero or more tickets
-- Each ticket has a non-zero price, expressed in US Dollars
-- The distance between two points should be computed as the Manhattan distance
- 
-Instructions
- 
-- You are required to write a program which accepts a user location as a pair of co-ordinates, and returns a list of the five closest events, along with the cheapest ticket price for each event
-- Please detail any assumptions you have made
-- How might you change your program if you needed to support multiple events at the same location?
-- How would you change your program if you were working with a much larger world size?
- 
-Example Program Run
- 
-Please Input Coordinates:
- 
-> 4,2
- 
-Closest Events to (4,2):
- 
-Event 003 - $30.29, Distance 3
-Event 001 - $35.20, Distance 5
-Event 006 - $01.40, Distance 12
-
- -->
