@@ -78,30 +78,7 @@ angular.module('MyApp')
 
        var step = distance;
        var nearCoords = [];
-       // while(step <= distance){
 
-       //  if(step % 2 != 0){
-       //      nearCoords.push(coords.x.toString() + ":" + (coords.y - step).toString());
-       //      nearCoords.push(coords.x.toString() + ":" + (coords.y + step).toString());
-       //      nearCoords.push((coords.x -step).toString() + ":" + (coords.y).toString());
-       //      nearCoords.push((coords.x +step).toString() + ":" + (coords.y).toString());
-
-       //   } 
-       //   if(step % 2 == 0){
-       //     console.log("step == 2");
-       //     nearCoords.push(coords.x.toString() + ":" + (coords.y - step).toString());
-       //     nearCoords.push(coords.x.toString() + ":" + (coords.y + step).toString());
-       //     nearCoords.push((coords.x -step).toString() + ":" + (coords.y).toString());
-       //     nearCoords.push((coords.x +step).toString() + ":" + (coords.y).toString());
-
-       //     nearCoords.push((coords.x -(step - 1)).toString() + ":" + (coords.y - (step - 1)).toString());
-       //     nearCoords.push((coords.x +(step - 1)).toString() + ":" + (coords.y - (step - 1)).toString());
-       //     nearCoords.push((coords.x -(step - 1)).toString() + ":" + (coords.y + (step - 1)).toString());
-       //     nearCoords.push((coords.x +(step - 1)).toString() + ":" + (coords.y + (step - 1)).toString());
-       //   }
-        
-       //   step++;
-       // }
 
        var checkUniqueCoord = function(Coords){
           if(nearCoords.indexOf(Coords) == -1){

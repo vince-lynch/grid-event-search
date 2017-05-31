@@ -5,6 +5,7 @@ angular.module('MyApp')
 
      $scope.coordinates = "0,0"
      $scope.gridWidth   = 20;
+     $scope.manhattanDistanceToSearch = 1;
 
      
 
@@ -83,13 +84,45 @@ angular.module('MyApp')
        console.log("found event", nearestEvent);
        // Highlight event
        $scope.grid[coordsKey].selected = "event-selected";
+       var distance = parseInt($scope.manhattanDistanceToSearch);
+       console.log("distance", distance);
 
-       var nearCoords = {
-           oneUp   : coords.x.toString() + ":" + (coords.y - 1).toString(),
-           oneDown : coords.x.toString() + ":" + (coords.y + 1).toString(),
-           oneLeft : (coords.x -1).toString() + ":" + (coords.y).toString(),
-           oneRight: (coords.x +1).toString() + ":" + (coords.y).toString()
+       var step = distance;
+       var nearCoords = [];
+
+
+       var checkUniqueCoord = function(Coords){
+          if(nearCoords.indexOf(Coords) == -1){
+            nearCoords.push(Coords);
+          }
        }
+
+       while(step > 0){
+         var i = 0;
+         while(i < step){
+
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y + i).toString());
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y + i).toString());
+
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y + step).toString());
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y - step).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y - step).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y + step).toString());
+
+           checkUniqueCoord((coords.x -step).toString() + ":" + (coords.y + i).toString());
+           checkUniqueCoord((coords.x -step).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +step).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +step).toString() + ":" + (coords.y + i).toString());
+          i++;
+         }
+         step--;
+       }
+
+
+      console.log("nearCoords", nearCoords);
+
        // Highlight nearest
        var i = 0;
        for(i in nearCoords){
@@ -99,24 +132,40 @@ angular.module('MyApp')
        }
        
 
-       var fourSurroundingEvents = [window.grid[nearCoords.oneUp], window.grid[nearCoords.oneDown], window.grid[nearCoords.oneLeft], window.grid[nearCoords.oneRight] ];
+       var fourSurroundingEvents = nearCoords;
        console.log("fourSurroundingEvents", fourSurroundingEvents);
     
        var fiveNearestEvents = fourSurroundingEvents;
-       fiveNearestEvents.push(nearestEvent);
+       //fiveNearestEvents.push(nearestEvent);
+
+       var lowestTicketPerBand = {};
 
        var i = 0;
        var cheapestLocalTickets = [];
-       for(i in fiveNearestEvents){
-         var theEvent = fiveNearestEvents[i];
-         if(theEvent != undefined){
-            var cheapestTicket = Math.min.apply(Math,theEvent.tickets);
-            theEvent.cheapestTicket = cheapestTicket;
-            cheapestLocalTickets.push(theEvent);
+       for(i in nearCoords){
+         var theVenue = $scope.grid[nearCoords[i]];
+         console.log(nearCoords[i]);
+         if(theVenue != undefined){
+            console.log("theVenue", theVenue);
+            var e = 0;
+            $.each(theVenue.venueEvents, function(bandName,f){
+                var EventTickets   =  theVenue.venueEvents[bandName];
+                var cheapestTicket = Math.min.apply(Math,EventTickets);
+
+            	console.log('EventTickets', bandName, EventTickets);
+            	if(lowestTicketPerBand[bandName] == undefined  || cheapestTicket < lowestTicketPerBand[bandName]){
+            		lowestTicketPerBand[bandName] = {cheapest: cheapestTicket, location: nearCoords[i]};
+            	}
+            	e++;
+            })
+            //for(e in theVenue.venueEvents){
+            	
+            //}
+            //e++;
          }
        }
-       $scope.cheapestLocalTickets = cheapestLocalTickets;
-       console.log("cheapestLocalTickets", cheapestLocalTickets);
+       $scope.lowestTicketPerBand = lowestTicketPerBand;
+       console.log("lowestTicketPerBand", lowestTicketPerBand);
     }
 
 

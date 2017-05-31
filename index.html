@@ -84,30 +84,30 @@
 				<li class="first"><p id="currtype">Coordinates</p>
 				</li>
 			</ul>
-			<input type="coordinates" name="coordinates" data-ng-model="coordinates" type="text" id="query" autocomplete="on" name="q"><button data-ng-click="findNearest(coordinates)">Search Coordinates</button><button data-ng-click="clearSearch()">Clear search</button>
-      <label>manhattanDistanceToSearch: </label><input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" type="text">
+			<input type="coordinates" name="coordinates" data-ng-model="coordinates" type="text" id="query" autocomplete="on" name="q"><button data-ng-click="findNearest(coordinates)">Search Coordinates</button><button data-ng-click="clearSearch()">Clear search</button><br/>
+      <label style="color: white;">manhattanDistanceToSearch: </label><input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" type="text">
 			
 			<div class="clear"></div>
 		</form>
   
 
-    <table class="table table-inverse" ng-if="cheapestLocalTickets.length > 0" class="search-Results" style="background: white;">
+    <table class="table table-inverse" class="search-Results" style="background: white;">
       <thead>
         <tr>
           <th>#</th>
-          <th>Gig Name</th>
+          <th>Bandname</th>
           <th>Cheapest Price</th>
           <th>Coordinates</th>
           <th>Total Tickets</th>
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="ticket in cheapestLocalTickets track by $index">
+        <tr data-ng-repeat="(bandName, ticket) in lowestTicketPerBand">
           <th scope="row">{{$index}}</th>
-          <td data-ng-bind="ticket.gigName"></td>
-          <td >$<span data-ng-bind="ticket.cheapestTicket"></span></td>
-          <td  data-ng-bind="ticket.name"></td>
-          <td  data-ng-bind="ticket.tickets.length"></td>
+          <td data-ng-bind="bandName"></td>
+          <td >$<span data-ng-bind="ticket.cheapest"></span></td>
+          <td  data-ng-bind="ticket.location"></td>
+          <td  data-ng-bind="grid[ticket.location].venueEvents[bandName].length"></td>
         </tr>
 
       </tbody>
@@ -132,8 +132,8 @@
 
 	  
 	  <script src="/grid-test/js/app.js"></script>
-    <script src="/grid-test/js/controllers/grid.js"></script>
-	  <!-- <script src="/grid-test/js/controllers/multipleEventsPerVenue.js"></script> -->
+    <!-- <script src="/grid-test/js/controllers/grid.js"></script> -->
+	  <script src="/grid-test/js/controllers/multipleEventsPerVenue.js"></script>
     <script type="text/javascript" src="./js/libs/jquery.simpleWeather.min.js"></script>
     <link rel="stylesheet" href="./css/weather-icons.min.css">
 
