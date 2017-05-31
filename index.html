@@ -72,24 +72,24 @@
 
 
 
+
+  <hr/>
+
+
+  <section>
+      <h1>Please click on an area of the map to see the cheapest tickets avaliable per venue:</h1>
+  <p></p><br/>
   <div class="container grid-container">
     <div class="grid-event-box {{event.selected}}" ng-repeat="event in grid track by $index" ng-class="{'event-selected': event.selected, 'near-event': event.highlighted }" style="width: {{eventBoxWidth}}%;" ng-click="findNearest(event.eventCoords.x + ',' + event.eventCoords.y)">
           {{event.eventCoords.x}}, {{event.eventCoords.y}}
     </div>
   </div>
+  </section>
 
 
-		<form id="search" >
-			<ul class="type">
-				<li class="first"><p id="currtype">Coordinates</p>
-				</li>
-			</ul>
-			<input type="coordinates" name="coordinates" data-ng-model="coordinates" type="text" id="query" autocomplete="on" name="q"><button data-ng-click="findNearest(coordinates)">Search Coordinates</button><button data-ng-click="clearSearch()">Clear search</button><br/>
-      <label style="color: white;">MAX Manhattan Distance: </label><br/><input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" type="text">
-			
-			<div class="clear"></div>
-		</form>
-  
+
+  <label style="color: white;">MAX Manhattan Distance: </label><br/><input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" type="text">
+
     <h1>Any Band, Cheapest Tickets in Area</h1>
     <table class="table table-inverse" class="search-Results" style="background: white;">
       <thead>
@@ -115,7 +115,7 @@
 
    <label style="color: white;">Band name:</label><input class="form-control" type="text" ng-model="bandName"  /><button ng-click="findBandTickets()">Cheapest Tickets for Band in Area</button>
 
-    <h1>Band {{bandName}} - Cheapest Tickets in Area</h1>
+    <h1>Cheapest Tickets for {{bandName}} in Area</h1>
         <table class="table table-inverse" class="search-Results" style="background: white;">
       <thead>
         <tr>

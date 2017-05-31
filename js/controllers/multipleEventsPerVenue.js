@@ -174,13 +174,15 @@ angular.module('MyApp')
    $scope.clearSearch = function(){
      console.log("reached clearSearch()");
 
-     var i = 0;
-     for(i in $scope.cheapestLocalTickets){
-       var aEvent = $scope.cheapestLocalTickets[i];
-       $scope.grid[aEvent.name].selected    = false;
-       $scope.grid[aEvent.name].highlighted = false;
-     }
-     $scope.cheapestLocalTickets = [];
+
+     $.each($scope.grid,function(i,e){
+       console.log("i:", i, "e:", e);
+
+       $scope.grid[i].selected    = false;
+       $scope.grid[i].highlighted = false;
+     })
+     $scope.lowestTicketPerBand = [];
+     $scope.cheapTickets = [];
    }
 
 

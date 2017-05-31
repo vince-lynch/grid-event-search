@@ -283,7 +283,7 @@ a:visited,
 
 .grid-event-box {
     width: 5%;
-    height: 32px;
+    height: 20px;
     border: 1px solid black;
     display: inline-block;
     margin-top: -7px;
@@ -301,7 +301,9 @@ a:visited,
 .grid-container{
 	background: rgba(255, 255, 255, 0.19);
   width: 100%;
-  font-size: 9px;
+  font-size: 5px;
+  background: url('https://maproom.net/wp-content/uploads/Central-London-detailed-2.jpg');
+  background-size: cover;
 }
 html {
   position: relative;
@@ -924,7 +926,7 @@ body > .container-fluid {
 
 .grid-event-box {
     width: 5%;
-    height: 32px;
+    height: 20px;
     border: 1px solid rgba(113, 103, 103, 0.58);
     display: inline-block;
     margin-top: -7px;
