@@ -85,12 +85,12 @@
 				</li>
 			</ul>
 			<input type="coordinates" name="coordinates" data-ng-model="coordinates" type="text" id="query" autocomplete="on" name="q"><button data-ng-click="findNearest(coordinates)">Search Coordinates</button><button data-ng-click="clearSearch()">Clear search</button><br/>
-      <label style="color: white;">manhattanDistanceToSearch: </label><input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" type="text">
+      <label style="color: white;">MAX Manhattan Distance: </label><br/><input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" type="text">
 			
 			<div class="clear"></div>
 		</form>
   
-
+    <h1>Any Band, Cheapest Tickets in Area</h1>
     <table class="table table-inverse" class="search-Results" style="background: white;">
       <thead>
         <tr>
@@ -113,6 +113,31 @@
       </tbody>
     </table>
 
+   <label style="color: white;">Band name:</label><input class="form-control" type="text" ng-model="bandName"  /><button ng-click="findBandTickets()">Cheapest Tickets for Band in Area</button>
+
+    <h1>Band {{bandName}} - Cheapest Tickets in Area</h1>
+        <table class="table table-inverse" class="search-Results" style="background: white;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Bandname</th>
+          <th>Venue Location</th>
+          <th>Cheapest Price</th>
+          <th>Total Tickets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="(key, venue) in cheapTickets">
+          <th scope="row">{{$index}}</th>
+          <td data-ng-bind="bandName"></td>
+          <td  data-ng-bind="venue.location"></td>
+          <td >$<span data-ng-bind="venue.cheapestForVenue"></span></td>
+          
+          <td  data-ng-bind="grid[venue.location].venueEvents[bandName].length"></td>
+        </tr>
+
+      </tbody>
+    </table>
 
 
 

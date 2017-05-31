@@ -6,6 +6,7 @@ angular.module('MyApp')
      $scope.coordinates = "0,0"
      $scope.gridWidth   = 20;
      $scope.manhattanDistanceToSearch = 1;
+     $scope.bandName = "Feeder";
 
      
 
@@ -66,9 +67,8 @@ angular.module('MyApp')
      $scope.generateGrid($scope.gridWidth);
 
     
-    $scope.findNearest = function(Coords){
-      $scope.clearSearch(); // clear any previous search.
-      console.log("coords", Coords);
+     var getNear = function(Coords){
+     	      console.log("coords", Coords);
       $scope.coordinates = Coords; // set the textinput to the coordinates (incase selected from grid)
 
        var coords = {x: (parseInt(Coords.split(",")[0]) ), y: (parseInt(Coords.split(",")[1]) )}
@@ -130,13 +130,15 @@ angular.module('MyApp')
             $scope.grid[nearCoords[i]].highlighted = true;
           }
        }
-       
+       return nearCoords;
+     }
 
-       var fourSurroundingEvents = nearCoords;
-       console.log("fourSurroundingEvents", fourSurroundingEvents);
-    
-       var fiveNearestEvents = fourSurroundingEvents;
-       //fiveNearestEvents.push(nearestEvent);
+
+
+    $scope.findNearest = function(Coords){
+      $scope.clearSearch(); // clear any previous search.
+      var nearCoords = getNear(Coords);
+       
 
        var lowestTicketPerBand = {};
 
@@ -179,6 +181,34 @@ angular.module('MyApp')
        $scope.grid[aEvent.name].highlighted = false;
      }
      $scope.cheapestLocalTickets = [];
+   }
+
+
+
+   $scope.findBandTickets = function(){
+   	 console.log("called findBandTickets, bandName:", $scope.bandName, "coordinates:", $scope.coordinates, " distance:", $scope.manhattanDistanceToSearch);
+     
+     $scope.clearSearch(); // clear any previous search.
+     var nearCoords = getNear($scope.coordinates);
+     var cheapTickets = [];
+
+	   for(i in nearCoords){
+	   	  var theVenue = $scope.grid[nearCoords[i]]
+	   	  console.log('theVenue',theVenue );
+
+	   	  // $.each(theVenue.venueEvents, function(bandName,f){
+
+       //      console.log("bandName",bandName)
+	   	  // })
+	   	  console.log("theVenue.venueEvents[$scope.bandName]", theVenue.venueEvents[$scope.bandName]);
+	   	  if(theVenue.venueEvents['Feeder'] != undefined){
+		   	  var cheapestForVenue = Math.min.apply(Math,theVenue.venueEvents[$scope.bandName]);
+			  cheapTickets.push({cheapestForVenue: cheapestForVenue, location: theVenue.name})
+	   	  }
+
+	   }
+       console.log("cheapTickets", cheapTickets);
+       $scope.cheapTickets = cheapTickets;
    }
 
   });

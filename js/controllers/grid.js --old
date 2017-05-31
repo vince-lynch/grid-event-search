@@ -6,6 +6,7 @@ angular.module('MyApp')
      $scope.coordinates = "0,0"
      $scope.gridWidth   = 20;
      $scope.manhattanDistanceToSearch = 1;
+     $scope.bandName = "Feeder";
 
      
 
