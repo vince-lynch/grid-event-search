@@ -209,7 +209,7 @@ a:active{
 }
 #search .type {
     /* width: 5%; */
-    width: 78px;
+    width: 98px;
 }
 #search span{
 	padding:0 1%;
@@ -369,6 +369,7 @@ footer {
     background-color: rgba(0, 0, 0, 0.65);
     border-color: rgb(10, 10, 10);
     color: white;
+    border-bottom: red solid 4px;
 }
 
 .navbar-default .navbar-nav {
@@ -382,6 +383,16 @@ footer {
   padding-bottom: 14.5px;
   transition: all 0.25s;
 }
+
+
+.navbar-default .navbar-brand{
+  color: white !important;
+}
+
+.navbar-default .navbar-nav > li > a{
+  color: white !important;
+}
+
 
 .navbar-default .navbar-nav > li > a:hover {
   background-color: transparent;;
@@ -925,4 +936,9 @@ body > .container-fluid {
 
 .near-event{
   border: 1px solid yellow;
+}
+
+
+.search-Results{
+  color: white;
 }

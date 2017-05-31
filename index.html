@@ -5,6 +5,7 @@
 <title>TicketSearch</title>
 
 <script src="/js/lib/jquery.js"></script>
+<script type="text/javascript" src="./js/libs/bandslist.js"></script>
 <script type="text/javascript" src="./js/libs/settings.js"></script>
 <script type="text/javascript" src="./js/libs/custom.js"></script>
 
@@ -80,14 +81,43 @@
 			
 			<div class="clear"></div>
 		</form>
-       
   
+<!--   <div >
+    <h2>Cheapest Tickets</h2>
+    <ul>
+      <li data-ng-repeat="ticket in cheapestLocalTickets track by $index">
+        <span>Event: <i data-ng-bind="ticket.gigName"></i> Location: <i data-ng-bind="ticket.name"></i>Tickets Avaliable <span>{{ticket.tickets.length}}</span> - cheapest ticket: $<em data-ng-bind="ticket.cheapestTicket"></em></span>
+      </li>
+    </ul>
+  </div>      -->
+
+
+
+    <table class="table table-inverse" ng-if="cheapestLocalTickets.length > 0" class="search-Results" style="background: white;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Gig Name</th>
+          <th>Cheapest Price</th>
+          <th>Coordinates</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="ticket in cheapestLocalTickets track by $index">
+          <th scope="row">{{$index}}</th>
+          <td data-ng-bind="ticket.gigName"></td>
+          <td >$<span data-ng-bind="ticket.cheapestTicket"></span></td>
+          <td  data-ng-bind="ticket.name"></td>
+        </tr>
+
+      </tbody>
+    </table>
 
 
 
 
 	</div>
-	<div  data-ng-include="'/grid-test/views/grid.html'" style="width: 100% !important;"></div>
+	<!-- <div  data-ng-include="'/grid-test/views/grid.html?12'" style="width: 100% !important;"></div> -->
 
 
 </body>

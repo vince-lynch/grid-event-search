@@ -26,6 +26,7 @@ angular.module('MyApp')
             eventTickets = [];
      		randTicketsAmount = Math.floor(Math.random() * 6) + 1;
 
+        var randomBand = window.bandsList[Math.floor(Math.random() * 59) + 1];
 
      		var r = 0;
      		while(r < randTicketsAmount){
@@ -40,7 +41,7 @@ angular.module('MyApp')
             var eventCoords = {x: (i - (wYf))-halfX , y: yAxis};
             var theKey = eventCoords.x.toString() + ":" + eventCoords.y.toString();
 
-            window.grid[theKey] = {name: theKey,eventCoords: eventCoords, tickets: eventTickets, selected: false};
+            window.grid[theKey] = {name: theKey,eventCoords: eventCoords, gigName: randomBand, gigDate:  'randomDate',tickets: eventTickets, selected: false};
             
             i++;
      	}
@@ -95,7 +96,8 @@ angular.module('MyApp')
          var theEvent = fiveNearestEvents[i];
          if(theEvent != undefined){
             var cheapestTicket = Math.min.apply(Math,theEvent.tickets);
-            cheapestLocalTickets.push({eventName: theEvent.name,cheapestTicket: cheapestTicket});
+            theEvent.cheapestTicket = cheapestTicket;
+            cheapestLocalTickets.push(theEvent);
          }
        }
        $scope.cheapestLocalTickets = cheapestLocalTickets;
