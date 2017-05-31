@@ -300,6 +300,8 @@ a:visited,
 
 .grid-container{
 	background: rgba(255, 255, 255, 0.19);
+  width: 100%;
+  font-size: 9px;
 }
 html {
   position: relative;

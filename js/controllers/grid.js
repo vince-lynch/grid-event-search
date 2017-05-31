@@ -54,6 +54,9 @@ angular.module('MyApp')
 
     
     $scope.findNearest = function(Coords){
+      $scope.clearSearch(); // clear any previous search.
+      console.log("coords", Coords);
+      $scope.coordinates = Coords; // set the textinput to the coordinates (incase selected from grid)
 
        var coords = {x: (parseInt(Coords.split(",")[0]) ), y: (parseInt(Coords.split(",")[1]) )}
        var coordsKey = coords.x.toString() + ":" +coords.y.toString();
@@ -111,8 +114,8 @@ angular.module('MyApp')
      var i = 0;
      for(i in $scope.cheapestLocalTickets){
        var aEvent = $scope.cheapestLocalTickets[i];
-       $scope.grid[aEvent.eventName].selected    = false;
-       $scope.grid[aEvent.eventName].highlighted = false;
+       $scope.grid[aEvent.name].selected    = false;
+       $scope.grid[aEvent.name].highlighted = false;
      }
      $scope.cheapestLocalTickets = [];
    }

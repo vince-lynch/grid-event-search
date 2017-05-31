@@ -71,6 +71,14 @@
 		</header>
 
 
+
+  <div class="container grid-container">
+    <div class="grid-event-box {{event.selected}}" ng-repeat="event in grid track by $index" ng-class="{'event-selected': event.selected, 'near-event': event.highlighted }" style="width: {{eventBoxWidth}}%;" ng-click="findNearest(event.eventCoords.x + ',' + event.eventCoords.y)">
+          {{event.eventCoords.x}}, {{event.eventCoords.y}}
+    </div>
+  </div>
+
+
 		<form id="search" >
 			<ul class="type">
 				<li class="first"><p id="currtype">Coordinates</p>
