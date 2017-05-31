@@ -5,6 +5,7 @@ angular.module('MyApp')
 
      $scope.coordinates = "0,0"
      $scope.gridWidth   = 20;
+     $scope.manhattanDistanceToSearch = 1;
 
      
 
@@ -72,12 +73,68 @@ angular.module('MyApp')
        // Highlight event
        $scope.grid[coordsKey].selected = "event-selected";
 
-       var nearCoords = {
-           oneUp   : coords.x.toString() + ":" + (coords.y - 1).toString(),
-           oneDown : coords.x.toString() + ":" + (coords.y + 1).toString(),
-           oneLeft : (coords.x -1).toString() + ":" + (coords.y).toString(),
-           oneRight: (coords.x +1).toString() + ":" + (coords.y).toString()
+       var distance = parseInt($scope.manhattanDistanceToSearch);
+       console.log("distance", distance);
+
+       var step = distance;
+       var nearCoords = [];
+       // while(step <= distance){
+
+       //  if(step % 2 != 0){
+       //      nearCoords.push(coords.x.toString() + ":" + (coords.y - step).toString());
+       //      nearCoords.push(coords.x.toString() + ":" + (coords.y + step).toString());
+       //      nearCoords.push((coords.x -step).toString() + ":" + (coords.y).toString());
+       //      nearCoords.push((coords.x +step).toString() + ":" + (coords.y).toString());
+
+       //   } 
+       //   if(step % 2 == 0){
+       //     console.log("step == 2");
+       //     nearCoords.push(coords.x.toString() + ":" + (coords.y - step).toString());
+       //     nearCoords.push(coords.x.toString() + ":" + (coords.y + step).toString());
+       //     nearCoords.push((coords.x -step).toString() + ":" + (coords.y).toString());
+       //     nearCoords.push((coords.x +step).toString() + ":" + (coords.y).toString());
+
+       //     nearCoords.push((coords.x -(step - 1)).toString() + ":" + (coords.y - (step - 1)).toString());
+       //     nearCoords.push((coords.x +(step - 1)).toString() + ":" + (coords.y - (step - 1)).toString());
+       //     nearCoords.push((coords.x -(step - 1)).toString() + ":" + (coords.y + (step - 1)).toString());
+       //     nearCoords.push((coords.x +(step - 1)).toString() + ":" + (coords.y + (step - 1)).toString());
+       //   }
+        
+       //   step++;
+       // }
+
+       var checkUniqueCoord = function(Coords){
+          if(nearCoords.indexOf(Coords) == -1){
+            nearCoords.push(Coords);
+          }
        }
+
+       while(step > 0){
+         var i = 0;
+         while(i < step){
+
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y + i).toString());
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y + i).toString());
+
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y + step).toString());
+           checkUniqueCoord((coords.x -i).toString() + ":" + (coords.y - step).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y - step).toString());
+           checkUniqueCoord((coords.x +i).toString() + ":" + (coords.y + step).toString());
+
+           checkUniqueCoord((coords.x -step).toString() + ":" + (coords.y + i).toString());
+           checkUniqueCoord((coords.x -step).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +step).toString() + ":" + (coords.y - i).toString());
+           checkUniqueCoord((coords.x +step).toString() + ":" + (coords.y + i).toString());
+          i++;
+         }
+         step--;
+       }
+
+
+      console.log("nearCoords", nearCoords);
+
        // Highlight nearest
        var i = 0;
        for(i in nearCoords){
@@ -87,16 +144,17 @@ angular.module('MyApp')
        }
        
 
-       var fourSurroundingEvents = [window.grid[nearCoords.oneUp], window.grid[nearCoords.oneDown], window.grid[nearCoords.oneLeft], window.grid[nearCoords.oneRight] ];
+       var fourSurroundingEvents = nearCoords;
        console.log("fourSurroundingEvents", fourSurroundingEvents);
     
        var fiveNearestEvents = fourSurroundingEvents;
-       fiveNearestEvents.push(nearestEvent);
+       //fiveNearestEvents.push(nearestEvent);
 
        var i = 0;
        var cheapestLocalTickets = [];
-       for(i in fiveNearestEvents){
-         var theEvent = fiveNearestEvents[i];
+       for(i in nearCoords){
+         var theEvent = $scope.grid[nearCoords[i]];
+         console.log(nearCoords[i]);
          if(theEvent != undefined){
             var cheapestTicket = Math.min.apply(Math,theEvent.tickets);
             theEvent.cheapestTicket = cheapestTicket;
