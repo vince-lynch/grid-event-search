@@ -6,85 +6,59 @@
 
 <script src="/js/lib/jquery.js"></script>
 <script type="text/javascript" src="./js/libs/bandslist.js"></script>
-<script type="text/javascript" src="./js/libs/settings.js"></script>
-<script type="text/javascript" src="./js/libs/custom.js"></script>
+<!-- <script type="text/javascript" src="./js/libs/settings.js"></script>
+<script type="text/javascript" src="./js/libs/custom.js"></script> -->
 
 
 </head>
 <base href="https://vincelynch.com/grid-test/">
-<body ng-app="MyApp" style="background-image: url(&quot;https://source.unsplash.com/collection/407877&quot;); background-repeat: no-repeat; background-size: cover; font-family: &quot;Clear Sans&quot;;" data-ng-controller="GridCtrl">
+<body ng-app="MyApp"  data-ng-controller="GridCtrl">
 	
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">TicketSearch</a>
+    <div class="agile" style="width: 100%; height: 500px; background-size: contain;background: url('/grid-test/images/bandimage.png'); background-repeat: no-repeat;">
+      <div class="agileits_main_grid">
+        <div class="agileits_main_grid_right">
+          <div class="menu">
+            <span class="menu-icon"><a href="#"><img src="images/menu-icon.png" alt=""></a></span>  
+              <ul class="nav1">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>   
+              <!-- script-for-menu -->
+               <script>
+                 $( "span.menu-icon" ).click(function() {
+                 $( "ul.nav1" ).slideToggle( 300, function() {
+                 // Animation complete.
+                  });
+                 });
+              </script>
+              <!-- /script-for-menu -->
+          </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li><a href="../navbar-static-top/">Static top</a></li>
-            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+        <div class="w3layouts">
+          <h2><a ">Ticket Agency</a></h2>
+        </div>
+        <div class="sw3-search">
+
+            <label style="color: white;">Band name:<input type="text" type="text" ng-model="bandName" style="color: black;"/>
+            <button ng-click="findBandTickets()">Search</button></label>
+
+                <label style="color: white;">MAX Distance:<input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" class="form-control" type="text" style='width: 47px;'></label>
+        </div>
+        <div class="user-agileits">
+          <a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+          
+        </div>
+        <div class="clear"> </div>
       </div>
-    </nav>
 
 
-
-
-	<div id="wrapper" class="container">
-		<header>
-			<div id="fulltime">
-			        <h1 style="font-size:1.3em"></h1>
-				<h1></h1>
-				<h1 id="time">22<span>:</span>14<span>:</span>12</h1>
-				<h2 id="day">Monday</h2>
-				<h3 id="date">May 29, 2017</h3>
-			</div>
-			<div id="weather"><h2 class="weatherHead"><i class="wi wi-yahoo-29"></i> 25°C</h2><ul class="weatherDetail"><li>London,  UK</li><li class="currently">Partly Cloudy</li></ul></div>
-			<div class="clear"></div>
-		</header>
-
-
- <hr/>
- <div>
-    <label style="color: white;">MAX Manhattan Distance: </label><br/><input type="manhattanDistanceToSearch" name="manhattanDistanceToSearch" data-ng-model="manhattanDistanceToSearch" class="form-control" type="text">
-    
-    <label style="color: white;">Band name:</label><input class="form-control" type="text" ng-model="bandName" style="width:28%;display:inline-block;" /><button ng-click="findBandTickets()" class="btn btn-primary">Cheapest Tickets for Band in Area</button>
- </div>
-
-
-
-  <hr/>
 
   <section>
-      <h1>Please click on an area of the map to see the cheapest tickets for all venues in the area:</h1>
-  <p></p><br/>
   <div class="container grid-container">
     <div class="grid-event-box {{event.selected}}" ng-repeat="event in grid track by $index" ng-class="{'event-selected': event.selected, 'near-event': event.highlighted }" style="width: {{eventBoxWidth}}%;" ng-click="findNearest(event.eventCoords.x + ',' + event.eventCoords.y)">
           {{event.eventCoords.x}}, {{event.eventCoords.y}}
@@ -92,63 +66,99 @@
   </div>
   </section>
 
+      <div class="agileinfo" style="background: rgba(250,235,215,0.52);">
+        <div class="wthree-right">
+          <div class="w3-agileits-top">
+            <ul>
+              <li><span>From</span><div class="agileits_w3layouts_main_gridl">
+              <input class="date" id="datepicker" name="Text" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required="">
+            </div></li>
+              <li><span>To</span><div class="agileits_w3layouts_main_gridl">
+              <input class="date" id="datepicker1" name="Text" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required="">
+            </div></li>
+              <li><span>Guests</span><select id="category1" name="category1" required="">
+              <option value="category1">01</option>
+              <option value="category2">02</option>
+              <option value="category3">03</option>
+              <option value="category4">04</option>
+              <option value="category2">05</option>
+              <option value="category3">06</option>
+            </select></li>
+            <div class="clear"> </div>
+            </ul>
+          </div>
+          <div class="w3-agileits-bottom" style="overflow-y: scroll; max-height: 284px;">
+          <ul class="w3ls_weather" data-ng-repeat="(bandName, ticket) in lowestTicketPerBand" ng-if="cheapTickets.length < 1">
+              <li class="lft"><h4 data-ng-bind="bandName"></h4>Location: <span data-ng-bind="ticket.location"></span></li>
+              <li class="rt"><h5 >${{ticket.cheapest}}</h5><span data-ng-bind="grid[ticket.location].venueEvents[bandName].length"></span> Tickets Avaliable</li>
+              <div class="clear"> </div>
+          </ul>
+
+           <ul class="w3ls_weather" data-ng-repeat="(key, venue) in cheapTickets" ng-if="cheapTickets.length > 1">
+              <li class="lft"><h4 data-ng-bind="bandName"></h4>Location: <span data-ng-bind="venue.location"></span></li>
+              <li class="rt"><h5 >${{venue.cheapestForVenue}}</h5><span data-ng-bind="grid[venue.location].venueEvents[bandName].length"></span> Tickets Avaliable</li>
+              <div class="clear"> </div>
+          </ul>
+
+          </div>
+        </div>
+
+        <div class="clear"> </div>
+      </div>
+<h4 style="color: white">Please click on an area of the map to see the cheapest tickets for all venues in the area:</h4>
+
+<div class="container">
+  <h2>Carousel Example</h2>  
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="/grid-test/images/la.jpg" alt="Los Angeles" style="width:100%;">
+      </div>
+
+      <div class="item">
+        <img src="/grid-test/images/chicago.jpg" alt="Chicago" style="width:100%;">
+      </div>
+    
+      <div class="item">
+        <img src="/grid-test/images/ny.jpg" alt="New york" style="width:100%;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
 
 
 
 
-    <h1>Any Band, Cheapest Tickets in Area</h1>
-    <table class="table table-inverse" class="search-Results" style="background: white;">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Bandname</th>
-          <th>Cheapest Price</th>
-          <th>Coordinates</th>
-          <th>Total Tickets</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="(bandName, ticket) in lowestTicketPerBand">
-          <th scope="row">{{$index}}</th>
-          <td data-ng-bind="bandName"></td>
-          <td >$<span data-ng-bind="ticket.cheapest"></span></td>
-          <td  data-ng-bind="ticket.location"></td>
-          <td  data-ng-bind="grid[ticket.location].venueEvents[bandName].length"></td>
-        </tr>
 
-      </tbody>
-    </table>
+      <div class="footer">
+        <p>&copy; 2017 Ticket Agency Widget. All Rights Reserved</a></p>
+      </div>
 
-   
+  
 
-    <h1>Cheapest Tickets for {{bandName}} in Area</h1>
-        <table class="table table-inverse" class="search-Results" style="background: white;">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Bandname</th>
-          <th>Venue Location</th>
-          <th>Cheapest Price</th>
-          <th>Total Tickets</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="(key, venue) in cheapTickets">
-          <th scope="row">{{$index}}</th>
-          <td data-ng-bind="bandName"></td>
-          <td  data-ng-bind="venue.location"></td>
-          <td >$<span data-ng-bind="venue.cheapestForVenue"></span></td>
-          
-          <td  data-ng-bind="grid[venue.location].venueEvents[bandName].length"></td>
-        </tr>
 
-      </tbody>
-    </table>
 
 
 
 	</div>
-	<!-- <div  data-ng-include="'/grid-test/views/grid.html?12'" style="width: 100% !important;"></div> -->
 
 
 </body>

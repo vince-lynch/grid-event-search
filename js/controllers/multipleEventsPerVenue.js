@@ -61,7 +61,7 @@ angular.module('MyApp')
      	}
 
         $scope.grid = window.grid;
-        $scope.eventBoxWidth = 100 / gridX;
+        //$scope.eventBoxWidth = 100 / gridX;
 
      }
      $scope.generateGrid($scope.gridWidth);
